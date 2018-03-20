@@ -14,12 +14,15 @@ export class AuthService {
               private dataStoreService: DataStoreService) { }
 
   registerWithEmail =  async (username: string, email: string, password: string) => {
+    this.dataStoreService.changeIsLoading(true);
     try {
       const user = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
       this.createUserProfile(user, username);
     } 
     catch (err) {
-      console.log(err); 
+      const errMessage = createAlertMessage(err.message, 'danger');  
+      this.dataStoreService.changeAlertMessage(errMessage);  
+      this.dataStoreService.changeIsLoading(false);               
     }
   }
 
@@ -28,34 +31,42 @@ export class AuthService {
     const ref = `atw/users/${uid}/profile`;
     try {
       await this.afDb.object(ref).set({email, username});
-      this.router.navigate(['/dashboard']);
+      this.dataStoreService.changeIsLoading(false);         
+      this.router.navigate(['/dashboard']);   
     } 
     catch (err) {
       const errMessage = createAlertMessage(err.message, 'danger');  
       this.dataStoreService.changeAlertMessage(errMessage); 
+      this.dataStoreService.changeIsLoading(false);               
     }
 
   }
 
   loginWithEmail = async (email: string, password: string) => {
+    this.dataStoreService.changeIsLoading(true);       
     try {
       await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-      this.router.navigate(['/dashboard']);      
+      this.dataStoreService.changeIsLoading(false);                   
+      this.router.navigate(['/dashboard']);  
     } 
     catch (err) {
-      const errMessage = createAlertMessage(err.message, 'danger');  
-      this.dataStoreService.changeAlertMessage(errMessage);       
+      const errMessage = createAlertMessage(err.message, 'danger'); 
+      this.dataStoreService.changeAlertMessage(errMessage);
+      this.dataStoreService.changeIsLoading(false);                             
     }
   }
 
   logout = async () => {
+    this.dataStoreService.changeIsLoading(true);             
     try {
       await this.afAuth.auth.signOut();
+      this.dataStoreService.changeIsLoading(false);                    
       this.router.navigate(['/']);
     } 
     catch (err) {
       const errMessage = createAlertMessage(err.message, 'danger');  
-      this.dataStoreService.changeAlertMessage(errMessage);         
+      this.dataStoreService.changeAlertMessage(errMessage);
+      this.dataStoreService.changeIsLoading(false);                        
     }
   }
 

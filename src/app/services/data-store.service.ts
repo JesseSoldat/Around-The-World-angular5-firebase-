@@ -15,6 +15,15 @@ export class DataStoreService {
   }
 
 
+  //SHOW SPINNER--------------------------------
+  private isLoading = new BehaviorSubject(false);
+  public readonly isLoading$: Observable<boolean> = this.isLoading.asObservable();
+
+  changeIsLoading(state: boolean) {
+    this.isLoading.next(state);
+  }
+
+
   constructor() { }
 
 }

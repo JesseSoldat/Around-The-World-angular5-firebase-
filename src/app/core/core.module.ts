@@ -13,6 +13,7 @@ import { DataStoreService } from '../services/data-store.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HeaderComponent } from './header/header.component';
 import { MessageComponent } from './message/message.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { MessageComponent } from './message/message.component';
   declarations: [
     WelcomeComponent, 
     HeaderComponent, 
-    MessageComponent
+    MessageComponent, SpinnerComponent
   ],
   providers: [
     AuthService,
@@ -32,7 +33,8 @@ import { MessageComponent } from './message/message.component';
   ],
   exports: [
     HeaderComponent,
-    MessageComponent
+    MessageComponent,
+    SpinnerComponent
   ]
 })
 export class CoreModule { }
