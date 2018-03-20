@@ -7,11 +7,20 @@ import { DataStoreService } from '../services/data-store.service';
 
 @Injectable()
 export class AuthService {
+  
 
   constructor(private afAuth: AngularFireAuth,
               private afDb: AngularFireDatabase,
               private router: Router,
-              private dataStoreService: DataStoreService) { }
+              private dataStoreService: DataStoreService) { 
+
+    afAuth.authState.subscribe(user => {
+      if(user === null) {     
+        return this.dataStoreService.changeUserState(null, false);
+      };
+      this.dataStoreService.changeUserState(user.uid, true);
+    });
+  }
 
   registerWithEmail =  async (username: string, email: string, password: string) => {
     this.dataStoreService.changeIsLoading(true);

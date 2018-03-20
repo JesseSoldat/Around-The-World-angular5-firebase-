@@ -4,6 +4,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FIREBASE_CONFIG_DEV } from '../config/config';
 
+// import { AgmCoreModule } from '@agm/core';
+// import { GOOGLE_MAP_KEY } from '../config/config';
+
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -20,7 +23,11 @@ import { SpinnerComponent } from './spinner/spinner.component';
     SharedModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG_DEV),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    // AgmCoreModule.forRoot({
+    //   apiKey: GOOGLE_MAP_KEY
+    // })
+  
   ],
   declarations: [
     WelcomeComponent, 
