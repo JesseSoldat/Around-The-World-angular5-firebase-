@@ -6,7 +6,8 @@ import { WelcomeComponent } from './core/welcome/welcome.component';
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'auth', loadChildren: 'app/auth/auth.module#AuthModule' },
-  { path: 'auth', loadChildren: 'app/auth/auth.module#AuthModule' }
+  { path: 'auth', loadChildren: 'app/auth/auth.module#AuthModule' },
+  { path: 'dashboard', loadChildren: 'app/dashboard/dashboard.module#DashboardModule' }
 ];
 
 @NgModule({
