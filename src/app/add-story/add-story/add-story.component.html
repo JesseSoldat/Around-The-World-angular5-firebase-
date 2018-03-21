@@ -1,14 +1,48 @@
 
 <div class="row">
-  <div class="col-12">
-    <h1>Tell Us Your Story</h1>
+  <div class="col-12 col-lg-6 storyMap">
+    <h1 class="googleMapTitle">Update Your Map Position</h1>
     <app-google-map type="small" 
+      (markerLocation)="updateMapLocation($event)"
       [lat]="lat" 
       [lng]="lng">
-    </app-google-map>
-    
+    </app-google-map> 
     <!-- <img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{lng}}&zoom=8&size=400x250
     &key={{key}}" > -->
+    <div class="row">
+      <button class="btn btn-success storyMapBtn"
+        (click)="onUpdateLocation()">
+        Update Map 
+      </button>
+    </div>
+  </div>
 
+  <div class="col-12 col-lg-6 storyForm">
+    <h1>Tell Us Your Story</h1>  
+    <form [formGroup]="storyForm">
+      <div class="form-group">
+        <label>Story Title</label>
+        <input type="text" 
+          class="form-control"
+          placeholder="Story Title"
+          formControlName="title"
+          maxlength="35">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea rows="10"
+          maxlength="500"
+          class="form-control"
+          formControlName="description">
+        </textarea>
+      </div>
+    </form>
+    <div class="row">
+      <button type="button" 
+        (click)="submitForm()"
+        class="btn btn-primary storyFormBtn">
+        Submit Form
+      </button>
+    </div>
   </div>
 </div>

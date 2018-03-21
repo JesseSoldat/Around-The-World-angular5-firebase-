@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MarkerLocation } from '../../models/marker-location';
 import { Router } from '@angular/router';
 
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./google-map.component.css']
 })
 export class GoogleMapComponent {
+  @Output() markerLocation = new EventEmitter();
   @Input() type: string;
   @Input() lat: number;
   @Input() lng: number;
@@ -25,6 +26,7 @@ export class GoogleMapComponent {
   onSetMarker(event) {
     const { lat, lng } = event.coords;
     this.marker = { lat, lng };
+    this.markerLocation.next(this.marker);
   }
 
   onSetLocation() {

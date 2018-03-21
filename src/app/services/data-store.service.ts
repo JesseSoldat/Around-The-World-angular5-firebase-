@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { AlertMessage } from '../models/message-alert';
-
-
+import { MyProfile } from '../models/my-profile';
 
 @Injectable()
 export class DataStoreService {
@@ -17,6 +16,14 @@ export class DataStoreService {
   changeUserState(uid, isLoggedIn) {
     this.uid.next(uid);
     this.isLoggedIn.next(isLoggedIn);
+  }
+
+  //MY PROFILE----------------------------------
+  private profile = new BehaviorSubject(undefined);
+  public readonly profile$: Observable<MyProfile> = this.profile.asObservable();
+
+  changeMyProfile(profile) {
+    this.profile.next(profile);
   }
 
   //ALERT MESSAGES--------------------------------

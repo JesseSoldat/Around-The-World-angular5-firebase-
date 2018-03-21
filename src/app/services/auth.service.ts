@@ -1,26 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { createAlertMessage } from '../shared/utils';
 import { DataStoreService } from '../services/data-store.service';
+import { StoryService } from './story.service';
+
 
 @Injectable()
 export class AuthService {
-  
 
   constructor(private afAuth: AngularFireAuth,
               private afDb: AngularFireDatabase,
               private router: Router,
-              private dataStoreService: DataStoreService) { 
-
-    afAuth.authState.subscribe(user => {
-      if(user === null) {     
-        return this.dataStoreService.changeUserState(null, false);
-      };
-      this.dataStoreService.changeUserState(user.uid, true);
-    });
-  }
+              private dataStoreService: DataStoreService,
+              private storyService: StoryService) {}
 
   registerWithEmail =  async (username: string, email: string, password: string) => {
     this.dataStoreService.changeIsLoading(true);
@@ -40,7 +34,7 @@ export class AuthService {
     const ref = `atw/users/${uid}/profile`;
     try {
       await this.afDb.object(ref).set({email, username});
-      this.dataStoreService.changeIsLoading(false);         
+      this.storyService.getMyProfile(uid);
       this.router.navigate(['/dashboard']);   
     } 
     catch (err) {
@@ -54,8 +48,9 @@ export class AuthService {
   loginWithEmail = async (email: string, password: string) => {
     this.dataStoreService.changeIsLoading(true);       
     try {
-      await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-      this.dataStoreService.changeIsLoading(false);                   
+      const user = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      
+      this.storyService.getMyProfile(user.uid);                  
       this.router.navigate(['/dashboard']);  
     } 
     catch (err) {

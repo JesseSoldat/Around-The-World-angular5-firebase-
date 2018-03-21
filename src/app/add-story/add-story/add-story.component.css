@@ -1,0 +1,25 @@
+.storyMap {
+  height: 500px;
+  position: relative;
+}
+
+.googleMapTitle {
+  margin-bottom: 30px;
+}
+
+.storyMapBtn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.storyForm {
+  height: 500px;
+  position: relative;  
+}
+
+.storyFormBtn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
