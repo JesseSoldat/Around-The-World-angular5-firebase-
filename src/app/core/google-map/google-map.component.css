@@ -1,0 +1,18 @@
+.relative {
+	position: relative;
+}
+.rtFloat {
+	position: absolute;
+	top: 3%;
+	right: 3%;
+	z-index: 1000;
+}
+
+.large {
+  height: 600px;
+}
+
+.small {
+  height: 250px;
+  width: 400px;
+}

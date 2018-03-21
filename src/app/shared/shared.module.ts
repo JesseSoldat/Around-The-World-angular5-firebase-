@@ -6,9 +6,12 @@ import { environment } from '../../environments/environment';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+  
   ],
-  declarations: [],
+  declarations: [
+  
+  ],
   exports: [
     CommonModule,
     FormsModule
